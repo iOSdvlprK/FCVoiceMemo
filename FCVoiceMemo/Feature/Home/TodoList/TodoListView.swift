@@ -39,6 +39,12 @@ struct TodoListView: View {
                 .padding(.trailing, 20)
                 .padding(.bottom, 50)
         }
+        .alert("Todo list \(todoListViewModel.removeTodosCount)개 삭제하시겠습니까?", isPresented: $todoListViewModel.isDisplayRemoveTodoAlert) {
+            Button("삭제", role: .destructive) {
+                todoListViewModel.removeBtnTapped()
+            }
+            Button("취소", role: .cancel) {}
+        }
     }
 }
 
@@ -135,6 +141,7 @@ private struct TodoCellView: View {
                     Text(todo.title)
                         .font(.system(size: 16))
                         .foregroundStyle(todo.selected ? .customIconGray : .customBlack)
+                        .strikethrough(todo.selected)
                     
                     Text(todo.convertedDayAndTime)
                         .font(.system(size: 16))
