@@ -16,7 +16,7 @@ struct TodoListView: View {
             // 투두 셀 리스트
             VStack {
                 if !todoListViewModel.todos.isEmpty {
-                    CustomNavigationBar(isDisplayLeftBrn: false, rightBtnAction: {
+                    CustomNavigationBar(isDisplayLeftBtn: false, rightBtnAction: {
                         todoListViewModel.navigationRightBtnTapped()
                     }, rightBtnType: todoListViewModel.navigationBarRightBtnMode)
                 } else {

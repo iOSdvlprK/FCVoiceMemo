@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct CustomNavigationBar: View {
-    let isDisplayLeftBrn: Bool
+    let isDisplayLeftBtn: Bool
     let isDisplayRightBtn: Bool
     let leftBtnAction: () -> Void
     let rightBtnAction: () -> Void
     let rightBtnType: NavigationBtnType
     
-    init(isDisplayLeftBrn: Bool = true, isDisplayRightBtn: Bool = true, leftBtnAction: @escaping () -> Void = {}, rightBtnAction: @escaping () -> Void = {}, rightBtnType: NavigationBtnType = .edit) {
-        self.isDisplayLeftBrn = isDisplayLeftBrn
+    init(isDisplayLeftBtn: Bool = true, isDisplayRightBtn: Bool = true, leftBtnAction: @escaping () -> Void = {}, rightBtnAction: @escaping () -> Void = {}, rightBtnType: NavigationBtnType = .edit) {
+        self.isDisplayLeftBtn = isDisplayLeftBtn
         self.isDisplayRightBtn = isDisplayRightBtn
         self.leftBtnAction = leftBtnAction
         self.rightBtnAction = rightBtnAction
@@ -24,7 +24,7 @@ struct CustomNavigationBar: View {
     
     var body: some View {
         HStack {
-            if isDisplayLeftBrn {
+            if isDisplayLeftBtn {
                 Button(action: leftBtnAction, label: {
                     Image(.leftArrow)
                 })
