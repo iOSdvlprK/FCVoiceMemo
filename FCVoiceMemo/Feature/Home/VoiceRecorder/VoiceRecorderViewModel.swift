@@ -42,3 +42,51 @@ class VoiceRecorderViewModel: NSObject, ObservableObject, AVAudioPlayerDelegate 
         self.selectedRecordedFile = selectedRecordedFile
     }
 }
+
+extension VoiceRecorderViewModel {
+    func voiceRecordCellTapped(_ recordedFile: URL) {
+        if selectedRecordedFile != recordedFile {
+            // TODO: - 재생정지 메서드 호출
+            selectedRecordedFile = recordedFile
+        }
+    }
+    
+    func removeBtnTapped() {
+        setIsDisplayRemoveVoiceRecorderAlert(true)
+    }
+    
+    func removeSelectedVoiceRecord() {
+        guard let fileToRemove = selectedRecordedFile,
+              let indexToRemove = recordedFiles.firstIndex(of: fileToRemove) else {
+            displayAlert(message: "선택된 음성메모 파일을 찾을 수 없습니다.")
+            return
+        }
+        
+        do {
+            try FileManager.default.removeItem(at: fileToRemove)
+            recordedFiles.remove(at: indexToRemove)
+            selectedRecordedFile = nil
+            // TODO: - 재생 정지 메서드 호출
+            displayAlert(message: "선택된 음성메모 파일을 성공적으로 삭제했습니다.")
+        } catch {
+            displayAlert(message: "선택된 음성메모 파일 삭제 중 오류가 발생했습니다.")
+        }
+    }
+    
+    private func setIsDisplayRemoveVoiceRecorderAlert(_ isDisplay: Bool) {
+        isDisplayRemoveVoiceRecorderAlert = isDisplay
+    }
+    
+    private func setErrorAlertMessage(_ message: String) {
+        errorAlertMessage = message
+    }
+    
+    private func setIsDisplayErrorAlert(_ isDisplay: Bool) {
+        isDisplayErrorAlert = isDisplay
+    }
+    
+    private func displayAlert(message: String) {
+        setErrorAlertMessage(message)
+        setIsDisplayErrorAlert(true)
+    }
+}
