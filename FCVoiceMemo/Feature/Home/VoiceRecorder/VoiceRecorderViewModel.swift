@@ -107,7 +107,7 @@ extension VoiceRecorderViewModel {
     }
     
     private func startRecording() {
-        let fileURL = getDocumentsDirectory().appendingPathComponent("새로운 녹음 \(recordedFiles.count + 1)")
+        let fileURL = getDocumentsDirectory().appendingPathComponent("새로운 녹음 \(recordedFiles.count + 1).m4a")
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 12000,
@@ -116,6 +116,10 @@ extension VoiceRecorderViewModel {
         ]
         
         do {
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            try audioSession.setActive(true)
+            
             audioRecorder = try AVAudioRecorder(url: fileURL, settings: settings)
             audioRecorder?.record()
             self.isRecording = true
@@ -140,6 +144,10 @@ extension VoiceRecorderViewModel {
 extension VoiceRecorderViewModel {
     func startPlaying(recordingURL: URL) {
         do {
+            let audioSession = AVAudioSession.sharedInstance()
+            try audioSession.setCategory(.playAndRecord, mode: .default, options: .defaultToSpeaker)
+            try audioSession.setActive(true)
+            
             audioPlayer = try AVAudioPlayer(contentsOf: recordingURL)
             audioPlayer?.delegate = self
             audioPlayer?.play()

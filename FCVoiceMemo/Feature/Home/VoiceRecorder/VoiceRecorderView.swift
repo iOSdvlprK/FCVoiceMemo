@@ -127,7 +127,7 @@ private struct VoiceRecorderCellView: View {
             }, label: {
                 VStack {
                     HStack {
-                        Text(recordedFile.lastPathComponent)
+                        Text(recordedFile.deletingPathExtension().lastPathComponent)
                             .font(.system(size: 15, weight: .bold))
                             .foregroundStyle(.customBlack)
                         
