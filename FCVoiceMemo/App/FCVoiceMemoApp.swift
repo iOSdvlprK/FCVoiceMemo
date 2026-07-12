@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct FCVoiceMemoApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Scene {
         WindowGroup {
             OnboardingView()
