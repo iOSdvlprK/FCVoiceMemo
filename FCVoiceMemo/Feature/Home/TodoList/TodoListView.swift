@@ -34,7 +34,7 @@ struct TodoListView: View {
                     .padding(.top, 20)
             }
         }
-        .modifier(WriteBtnViewModifier(action: { pathModel.paths.append(.todoView) }))
+        .writeBtn { pathModel.paths.append(.todoView) }
         .alert("Todo list \(todoListViewModel.removeTodosCount)개 삭제하시겠습니까?", isPresented: $todoListViewModel.isDisplayRemoveTodoAlert) {
             Button("삭제", role: .destructive) {
                 todoListViewModel.removeBtnTapped()

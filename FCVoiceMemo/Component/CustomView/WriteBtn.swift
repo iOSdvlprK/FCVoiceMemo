@@ -35,5 +35,24 @@ public struct WriteBtnViewModifier: ViewModifier {
 }
 
 // MARK: - 2️⃣
+extension View {
+    public func writeBtn(perform action: @escaping () -> Void) -> some View {
+        ZStack {
+            self
+            
+            VStack {
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    
+                    Button(action: action, label: { Image(.writeBtn) })
+                }
+            }
+            .padding(.trailing, 20)
+            .padding(.bottom, 50)
+        }
+    }
+}
 
 // MARK: - 3️⃣
