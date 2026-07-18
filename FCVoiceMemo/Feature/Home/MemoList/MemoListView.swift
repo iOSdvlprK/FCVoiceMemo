@@ -13,31 +13,28 @@ struct MemoListView: View {
     @EnvironmentObject private var homeViewModel: HomeViewModel
     
     var body: some View {
-        ZStack {
-            VStack {
-                if !memoListViewModel.memos.isEmpty {
-                    CustomNavigationBar(isDisplayLeftBtn: false, rightBtnAction: {
-                        memoListViewModel.navigationRightBtnTapped()
-                    }, rightBtnType: memoListViewModel.navigationBarRightBtnMode)
-                } else {
-                    Spacer()
-                        .frame(height: 30)
-                }
-                
-                TitleView()
-                    .padding(.top, 20)
-                
-                if memoListViewModel.memos.isEmpty {
-                    AnnouncementView()
-                } else {
-                    MemoListContentView()
-                        .padding(.top, 20)
-                }
+        VStack {
+            if !memoListViewModel.memos.isEmpty {
+                CustomNavigationBar(isDisplayLeftBtn: false, rightBtnAction: {
+                    memoListViewModel.navigationRightBtnTapped()
+                }, rightBtnType: memoListViewModel.navigationBarRightBtnMode)
+            } else {
+                Spacer()
+                    .frame(height: 30)
             }
             
-            WriteMemoBtnView()
-                .padding(.trailing, 20)
-                .padding(.bottom, 50)
+            TitleView()
+                .padding(.top, 20)
+            
+            if memoListViewModel.memos.isEmpty {
+                AnnouncementView()
+            } else {
+                MemoListContentView()
+                    .padding(.top, 20)
+            }
+        }
+        .writeBtn {
+            pathModel.paths.append(.memoView(isCreationMode: true, memo: nil))
         }
         .alert("메모 \(memoListViewModel.removeMemoCount)개를 삭제하시겠습니까?", isPresented: $memoListViewModel.isDisplayRemoveMemoAlert) {
             Button("삭제", role: .destructive) {
