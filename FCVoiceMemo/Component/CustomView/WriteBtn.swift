@@ -56,3 +56,30 @@ extension View {
 }
 
 // MARK: - 3️⃣
+public struct WriteBtnView<Content: View>: View {
+    let content: Content
+    let action: () -> Void
+    
+    public init(@ViewBuilder content: () -> Content, action: @escaping () -> Void) {
+        self.content = content()
+        self.action = action
+    }
+    
+    public var body: some View {
+        ZStack {
+            content
+            
+            VStack {
+                Spacer()
+                
+                HStack {
+                    Spacer()
+                    
+                    Button(action: action, label: { Image(.writeBtn) })
+                }
+            }
+            .padding(.trailing, 20)
+            .padding(.bottom, 50)
+        }
+    }
+}
