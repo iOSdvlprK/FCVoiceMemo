@@ -262,11 +262,10 @@ private struct ProgressBar: View {
 // MARK: - 녹음버튼 뷰
 private struct RecordBtnView: View {
     @ObservedObject private var voiceRecorderViewModel: VoiceRecorderViewModel
-    @State private var isAnimation: Bool
+    @State private var isAnimation: Bool = false
     
-    fileprivate init(voiceRecorderViewModel: VoiceRecorderViewModel, isAnimation: Bool = false) {
+    fileprivate init(voiceRecorderViewModel: VoiceRecorderViewModel) {
         self.voiceRecorderViewModel = voiceRecorderViewModel
-        self.isAnimation = isAnimation
     }
     
     fileprivate var body: some View {
